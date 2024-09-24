@@ -4,6 +4,12 @@ import { ThemeProvider } from "@/components/Theme/ThemeProvider";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import { Inter } from "next/font/google";
+import {
+  ResizableHandle,
+  ResizablePanel,
+  ResizablePanelGroup,
+} from "@/components/ui/resizable";
+
 const inter = Inter({
   subsets: ["latin"],
   display: "swap",
@@ -22,7 +28,7 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en" className={inter.className}>
-        <body>
+        <body className="min-h-screen flex flex-col">
           <ThemeProvider
             attribute="class"
             defaultTheme="system"
@@ -30,7 +36,13 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             <Navbar />
-            {children}
+            <ResizablePanelGroup direction="horizontal">
+              <ResizablePanel defaultSize={20} maxSize={20}>
+                Sidebar
+              </ResizablePanel>
+              <ResizableHandle withHandle />
+              <ResizablePanel defaultSize={80}>{children}</ResizablePanel>
+            </ResizablePanelGroup>
           </ThemeProvider>
         </body>
       </html>
