@@ -9,6 +9,7 @@ import {
   ResizablePanel,
   ResizablePanelGroup,
 } from "@/components/ui/resizable";
+import Sidebar from "@/components/Sidebar";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -28,7 +29,7 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en" className={inter.className}>
-        <body className="min-h-screen flex flex-col">
+        <body className="h-screen flex flex-col">
           <ThemeProvider
             attribute="class"
             defaultTheme="system"
@@ -36,13 +37,17 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             <Navbar />
-            <ResizablePanelGroup direction="horizontal">
-              <ResizablePanel defaultSize={20} maxSize={20}>
-                Sidebar
-              </ResizablePanel>
-              <ResizableHandle withHandle />
-              <ResizablePanel defaultSize={80}>{children}</ResizablePanel>
-            </ResizablePanelGroup>
+            <div className="flex-grow overflow-hidden">
+              <ResizablePanelGroup direction="horizontal" className="h-full">
+                <ResizablePanel defaultSize={20} minSize={15} maxSize={20}>
+                  <Sidebar />
+                </ResizablePanel>
+                <ResizableHandle withHandle />
+                <ResizablePanel defaultSize={80}>
+                  <div className="h-full overflow-y-auto">{children}</div>
+                </ResizablePanel>
+              </ResizablePanelGroup>
+            </div>
           </ThemeProvider>
         </body>
       </html>
