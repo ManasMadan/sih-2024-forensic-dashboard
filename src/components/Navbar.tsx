@@ -6,6 +6,7 @@ import { BellIcon, SearchIcon } from "lucide-react";
 import prisma from "@/lib/prisma";
 import { auth, currentUser } from "@clerk/nextjs/server";
 import { Badge } from "./ui/badge";
+import Link from "next/link";
 
 export default async function Navbar() {
   const { userId } = auth();
@@ -15,7 +16,9 @@ export default async function Navbar() {
   const user = await currentUser();
   return (
     <nav className="flex justify-between items-center p-4 border-b border-b-slate-200 dark:border-b-slate-700">
-      <h1 className="text-lg sm:text-2xl">Forensics Dashboard</h1>
+      <Link href="/">
+        <h1 className="text-lg sm:text-2xl">Forensics Dashboard</h1>
+      </Link>
       <div className="flex items-center border-2 border-secondary rounded-full px-4">
         <SearchIcon />
         <Input
