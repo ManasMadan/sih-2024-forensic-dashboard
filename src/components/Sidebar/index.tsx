@@ -5,6 +5,7 @@ import {
   GroupIcon,
   HomeIcon,
   LockIcon,
+  PenIcon,
   PlusCircleIcon,
   SettingsIcon,
   TagsIcon,
@@ -35,6 +36,11 @@ function generateLinks(path: string) {
         title: "Home",
         icon: <HomeIcon />,
         link: `/case/${caseId}`,
+      },
+      {
+        title: "Whiteboard",
+        icon: <PenIcon />,
+        link: `/case/${caseId}/whiteboard`,
       },
       {
         title: "Settings",
