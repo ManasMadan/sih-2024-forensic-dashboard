@@ -29,58 +29,9 @@ import {
 import { searchUsers } from "@/actions/user";
 import { User } from "@clerk/nextjs/server";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import tagsData from "@/lib/tags";
 
-const TagsArray: Option[] = [
-  "Murder",
-  "Child Abuse",
-  "Assassination",
-  "Robbery",
-  "Fraud",
-  "Kidnapping",
-  "Domestic Violence",
-  "Cybercrime",
-  "Drug Trafficking",
-  "Money Laundering",
-  "Terrorism",
-  "Human Trafficking",
-  "Sexual Assault",
-  "Arson",
-  "Identity Theft",
-  "Embezzlement",
-  "Extortion",
-  "Forgery",
-  "Burglary",
-  "Assault",
-  "Hate Crime",
-  "Stalking",
-  "Bribery",
-  "Espionage",
-  "Insider Trading",
-  "Counterfeiting",
-  "Blackmail",
-  "Racketeering",
-  "Vandalism",
-  "Perjury",
-  "Tax Evasion",
-  "Arms Trafficking",
-  "Smuggling",
-  "Genocide",
-  "War Crimes",
-  "Piracy",
-  "Organized Crime",
-  "Hacking",
-  "Conspiracy",
-  "Manslaughter",
-  "Vehicular Homicide",
-  "Animal Cruelty",
-  "Environmental Crime",
-  "Intellectual Property Theft",
-  "Carjacking",
-  "Trespassing",
-  "Juvenile Delinquency",
-  "Public Corruption",
-  "White Collar Crime",
-].map((tag) => ({ value: tag, label: tag }));
+const TagsArray: Option[] = tagsData.map((tag) => ({ value: tag, label: tag }));
 
 export default function NewCasePage() {
   const { user } = useUser();

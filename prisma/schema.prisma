@@ -16,6 +16,7 @@ datasource db {
 enum CaseStatus {
   ACTIVE
   CLOSED
+  PUBLIC
 }
 
 enum UserNotificationType {

@@ -1,7 +1,9 @@
 import {
   BellIcon,
+  GroupIcon,
   LockIcon,
   PlusCircleIcon,
+  TagsIcon,
   UnlockIcon,
   UserIcon,
 } from "lucide-react";
@@ -22,6 +24,11 @@ const links = [
     link: "/closed-cases",
   },
   {
+    title: "Public Cases",
+    icon: <GroupIcon />,
+    link: "/public-cases",
+  },
+  {
     title: "Alerts",
     icon: <BellIcon />,
     link: "/alerts",
@@ -30,6 +37,11 @@ const links = [
     title: "User Profile",
     icon: <UserIcon />,
     link: "/profile",
+  },
+  {
+    title: "Cases by tags",
+    icon: <TagsIcon />,
+    link: "/tag",
   },
 ];
 
