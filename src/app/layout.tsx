@@ -10,6 +10,7 @@ import {
   ResizablePanelGroup,
 } from "@/components/ui/resizable";
 import Sidebar from "@/components/Sidebar";
+import { Toaster } from "react-hot-toast";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -37,6 +38,8 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             <Navbar />
+            <Toaster position="bottom-right" />
+
             <div className="flex-grow overflow-hidden">
               <ResizablePanelGroup direction="horizontal" className="h-full">
                 <ResizablePanel defaultSize={20} minSize={15} maxSize={20}>
