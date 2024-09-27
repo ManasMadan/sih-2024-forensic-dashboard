@@ -17,3 +17,15 @@ export async function searchUsers(email: string) {
     throw new Error("Failed to search for users");
   }
 }
+
+export async function getUsers(userIds: string[]) {
+  try {
+    const users = await clerkClient.users.getUserList({
+      userId: userIds,
+    });
+    return JSON.stringify(users.data);
+  } catch (error) {
+    console.error("Error fetching users:", error);
+    throw new Error("Failed to fetch users");
+  }
+}
