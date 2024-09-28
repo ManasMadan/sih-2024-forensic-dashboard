@@ -5,8 +5,8 @@ import Link from "next/link";
 
 export default function TagItem({ tag }: { tag: string }) {
   return (
-    <Link href={`/tag/${tag}`}>
-      <Badge onClick={(e) => e.stopPropagation()}>{tag}</Badge>
+    <Link href={`/tag/${tag}`} onClick={(e) => e.stopPropagation()}>
+      <Badge>{tag}</Badge>
     </Link>
   );
 }

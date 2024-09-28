@@ -10,7 +10,8 @@ export default async function UpdateCasePage({
 }) {
   const { userId } = auth();
   const caseData = await getCase(parseInt(params.caseId));
-  if (caseData === null) return <div>Case Not Found</div>;
+  if (!caseData) return <div>Case Not Found</div>;
+
   let users = JSON.parse(await getUsers(caseData.userId)) as User[];
   users = users.filter((user) => user.id !== userId);
 
