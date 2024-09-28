@@ -30,7 +30,6 @@ import { User } from "@clerk/nextjs/server";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import tagsData from "@/lib/tags";
 import { Case } from "@prisma/client";
-import { revalidatePath } from "next/cache";
 
 const TagsArray: Option[] = tagsData.map((tag) => ({ value: tag, label: tag }));
 
