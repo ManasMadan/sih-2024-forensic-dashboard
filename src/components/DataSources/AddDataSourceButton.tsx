@@ -19,7 +19,9 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import toast from "react-hot-toast";
-import { createPerson } from "@/actions/profile";
+import { createLocation, createPerson, createVehicle } from "@/actions/profile";
+import { VehicleProfile } from "./Profile/VehicleProfile";
+import { LocationProfile } from "./Profile/LocationProfile";
 
 export default function AddDataSourceButton({ caseId }: { caseId: string }) {
   const [open, setOpen] = useState(false);
@@ -111,8 +113,40 @@ export default function AddDataSourceButton({ caseId }: { caseId: string }) {
         />
       ),
     },
-    { id: "vehicle_profile", name: "Vehicle Data", component: null },
-    { id: "location_profile", name: "Location Data", component: null },
+    {
+      id: "vehicle_profile",
+      name: "Vehicle Data",
+      component: (
+        <VehicleProfile
+          onSubmit={async (data) => {
+            await toast.promise(createVehicle(data, caseId), {
+              loading: "Creating Vehicle Profile...",
+              success: "Person Vehicle Created!",
+              error: "Error creating Vehicle Profile",
+            });
+
+            setSelected(null);
+          }}
+        />
+      ),
+    },
+    {
+      id: "location_profile",
+      name: "Location Data",
+      component: (
+        <LocationProfile
+          onSubmit={async (data) => {
+            await toast.promise(createLocation(data, caseId), {
+              loading: "Creating Location Profile...",
+              success: "Person Location Created!",
+              error: "Error creating Location Profile",
+            });
+
+            setSelected(null);
+          }}
+        />
+      ),
+    },
   ];
 
   useEffect(() => {
