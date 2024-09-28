@@ -10,9 +10,11 @@ import Link from "next/link";
 
 export default async function Navbar() {
   const { userId } = auth();
+  if (userId === null) return <div>Loading...</div>;
   const notificationsCount = await prisma.userNotification.count({
-    where: { userId: { equals: userId! } },
+    where: { userId: { equals: userId } },
   });
+
   const user = await currentUser();
   return (
     <nav className="flex justify-between items-center p-4 border-b border-b-slate-200 dark:border-b-slate-700">
