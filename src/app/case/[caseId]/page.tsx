@@ -1,9 +1,10 @@
 import React from "react";
+import AddDataSourceButton from "@/components/AddDataSourceButton";
 
-export default function page({ params }: { params: { caseId: string } }) {
+export default function Page({ params }: { params: { caseId: string } }) {
   return (
-    <div>
-      <h1>Case {params.caseId}</h1>
-    </div>
+    <main className="p-6">
+      <AddDataSourceButton />
+    </main>
   );
 }
