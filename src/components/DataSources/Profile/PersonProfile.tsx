@@ -51,7 +51,7 @@ export function PersonProfile({ person, onSubmit }: PersonProfileProps) {
   });
 
   return (
-    <Card className="max-h-[800px] overflow-y-scroll">
+    <Card className="max-h-[80vh] overflow-y-scroll">
       <CardHeader>
         <CardTitle>{person ? "Edit Person" : "Add Person"}</CardTitle>
         <CardDescription>Enter the person's details below.</CardDescription>

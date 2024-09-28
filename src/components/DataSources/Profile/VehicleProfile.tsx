@@ -48,7 +48,7 @@ export function VehicleProfile({ vehicle, onSubmit }: VehicleProfileProps) {
   });
 
   return (
-    <Card className="max-h-[800px] overflow-y-scroll">
+    <Card className="max-h-[80vh] overflow-y-scroll">
       <CardHeader>
         <CardTitle>{vehicle ? "Edit Vehicle" : "Add Vehicle"}</CardTitle>
         <CardDescription>Enter the vehicle's details below.</CardDescription>

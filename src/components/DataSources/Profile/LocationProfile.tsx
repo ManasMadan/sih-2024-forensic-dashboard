@@ -51,7 +51,7 @@ export function LocationProfile({ location, onSubmit }: LocationProfileProps) {
   });
 
   return (
-    <Card className="max-h-[800px] overflow-y-scroll">
+    <Card className="max-h-[80vh] overflow-y-scroll">
       <CardHeader>
         <CardTitle>{location ? "Edit Location" : "Add Location"}</CardTitle>
         <CardDescription>Enter the location's details below.</CardDescription>
