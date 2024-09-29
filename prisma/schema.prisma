@@ -15,6 +15,7 @@ enum CaseStatus {
 
 enum UserNotificationType {
   INVITED_TO_CASE
+  NEW_PROFILE
 }
 
 model Case {

@@ -13,9 +13,9 @@ export async function createPerson(personData: any, caseId: string) {
     }
 
     if (personData.thumbnail && personData.thumbnail.startsWith("data:image")) {
-      const key = `thumbnails/${Date.now()}-${personData.firstName}-${
-        personData.lastName
-      }`;
+      const key = `${caseId}/thumbnails/people/${Date.now()}-${
+        personData.firstName
+      }-${personData.lastName}`;
       const res = await uploadImageToS3(personData.thumbnail, key);
       personData.thumbnail = res;
     }
@@ -48,9 +48,9 @@ export async function createVehicle(vehicleData: any, caseId: string) {
       vehicleData.thumbnail &&
       vehicleData.thumbnail.startsWith("data:image")
     ) {
-      const key = `thumbnails/${Date.now()}-${vehicleData.model}-${
-        vehicleData.make
-      }`;
+      const key = `${caseId}/thumbnails/vehicles/${Date.now()}-${
+        vehicleData.model
+      }-${vehicleData.make}`;
       const res = await uploadImageToS3(vehicleData.thumbnail, key);
       vehicleData.thumbnail = res;
     }
@@ -82,9 +82,9 @@ export async function createLocation(locationData: any, caseId: string) {
       locationData.thumbnail &&
       locationData.thumbnail.startsWith("data:image")
     ) {
-      const key = `thumbnails/${Date.now()}-${locationData.name}-${
-        locationData.latitude
-      }-${locationData.longitude}`;
+      const key = `${caseId}/thumbnails/locations/${Date.now()}-${
+        locationData.name
+      }-${locationData.latitude}-${locationData.longitude}`;
       const res = await uploadImageToS3(locationData.thumbnail, key);
       locationData.thumbnail = res;
     }
