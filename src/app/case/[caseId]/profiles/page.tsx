@@ -4,6 +4,7 @@ import VehicleCard from "@/components/DataSources/Profile/VehicleCard";
 import LocationCard from "@/components/DataSources/Profile/LocationCard";
 import React from "react";
 import { Separator } from "@/components/ui/separator";
+import AddDataSourceButton from "@/components/DataSources/AddDataSourceButton";
 
 export default async function page({ params }: { params: { caseId: string } }) {
   const { caseId: caseIdStr } = params;
@@ -22,8 +23,9 @@ export default async function page({ params }: { params: { caseId: string } }) {
   }
 
   return (
-    <main className="space-y-8">
-      <section className="px-8 py-4">
+    <main className="space-y-8 p-6">
+      <AddDataSourceButton caseId={params.caseId} />
+      <section className="py-4">
         <h2 className="text-2xl font-bold mb-4">People</h2>
         <div className="flex flex-wrap gap-4">
           {people.map((person) => (
@@ -34,7 +36,7 @@ export default async function page({ params }: { params: { caseId: string } }) {
 
       <Separator />
 
-      <section className="px-8 py-4">
+      <section className="py-4">
         <h2 className="text-2xl font-bold mb-4">Vehicles</h2>
         <div className="flex flex-wrap gap-4">
           {vehicles.map((vehicle) => (
@@ -45,7 +47,7 @@ export default async function page({ params }: { params: { caseId: string } }) {
 
       <Separator />
 
-      <section className="px-8 py-4">
+      <section className="py-4">
         <h2 className="text-2xl font-bold mb-4">Locations</h2>
         <div className="flex flex-wrap gap-4">
           {locations.map((location) => (

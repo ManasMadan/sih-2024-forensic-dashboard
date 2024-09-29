@@ -71,3 +71,16 @@
     @apply bg-background text-foreground;
   }
 }
+
+.placeholder_image {
+  --s: 27px;
+  --c1: #414141;
+  --c2: #474747;
+
+  --c: #0000 75%, var(--c1) 0;
+  --g1: conic-gradient(at 75% 25%, var(--c));
+  --g2: conic-gradient(at 25% 75%, var(--c));
+  background: var(--g1), var(--g1) var(--s) var(--s), var(--g2),
+    var(--g2) var(--s) var(--s) var(--c2);
+  background-size: calc(2 * var(--s)) calc(2 * var(--s));
+}
