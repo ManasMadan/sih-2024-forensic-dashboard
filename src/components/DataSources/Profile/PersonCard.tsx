@@ -47,7 +47,7 @@ export default async function PersonCard({ person }: { person: Person }) {
       </CardContent>
       <CardFooter className="flex justify-end">
         <Button asChild variant="outline">
-          <Link href={`/case/${person.caseId}/person/${person.id}`}>
+          <Link href={`/case/${person.caseId}/profiles/person/${person.id}`}>
             View Person
           </Link>
         </Button>

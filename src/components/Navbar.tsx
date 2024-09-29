@@ -10,7 +10,7 @@ import Link from "next/link";
 
 export default async function Navbar() {
   const { userId } = auth();
-  if (userId === null) return <div>Loading...</div>;
+  if (userId === null) return <div>login to continue</div>;
   const notificationsCount = await prisma.userNotification.count({
     where: { userId: { equals: userId } },
   });

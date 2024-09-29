@@ -50,7 +50,11 @@ export default async function LocationCard({
       </CardContent>
       <CardFooter className="flex justify-end">
         <Button asChild variant="outline">
-          <Link href={`/location/${location.id}`}>View Location</Link>
+          <Link
+            href={`/case/${location.caseId}/profiles/location/${location.id}`}
+          >
+            View Location
+          </Link>
         </Button>
       </CardFooter>
     </Card>

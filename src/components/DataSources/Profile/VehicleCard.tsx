@@ -50,7 +50,9 @@ export default async function VehicleCard({ vehicle }: { vehicle: Vehicle }) {
       </CardContent>
       <CardFooter className="flex justify-end">
         <Button asChild variant="outline">
-          <Link href={`/vehicle/${vehicle.id}`}>View Vehicle</Link>
+          <Link href={`/case/${vehicle.caseId}/profiles/vehicle/${vehicle.id}`}>
+            View Vehicle
+          </Link>
         </Button>
       </CardFooter>
     </Card>
