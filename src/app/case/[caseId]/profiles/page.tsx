@@ -15,13 +15,15 @@ export default async function page({ params }: { params: { caseId: string } }) {
     return <div>Invalid Case ID</div>;
   }
 
-  const people = await listPeople(caseId);
-  const vehicles = await listVehicles(caseId);
-  const locations = await listLocations(caseId);
-  if (!people || !vehicles || !locations) {
-    throw new Error("Somehing went wrong");
-  }
+  const [people, vehicles, locations] = await Promise.all([
+    listPeople(caseId),
+    listVehicles(caseId),
+    listLocations(caseId),
+  ]);
 
+  if (!people || !vehicles || !locations) {
+    throw new Error("Something went wrong");
+  }
   return (
     <main className="space-y-8 p-6">
       <AddDataSourceButton caseId={params.caseId} />
