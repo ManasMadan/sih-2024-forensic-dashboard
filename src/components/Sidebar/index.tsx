@@ -38,6 +38,11 @@ function generateLinks(path: string) {
         link: `/case/${caseId}`,
       },
       {
+        title: "Profiles",
+        icon: <UserIcon />,
+        link: `/case/${caseId}/profiles`,
+      },
+      {
         title: "Whiteboard",
         icon: <PenIcon />,
         link: `/case/${caseId}/whiteboard`,

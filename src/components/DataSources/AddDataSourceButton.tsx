@@ -121,7 +121,7 @@ export default function AddDataSourceButton({ caseId }: { caseId: string }) {
           onSubmit={async (data) => {
             await toast.promise(createVehicle(data, caseId), {
               loading: "Creating Vehicle Profile...",
-              success: "Person Vehicle Created!",
+              success: "Vehicle Profile Created!",
               error: "Error creating Vehicle Profile",
             });
 
@@ -138,7 +138,7 @@ export default function AddDataSourceButton({ caseId }: { caseId: string }) {
           onSubmit={async (data) => {
             await toast.promise(createLocation(data, caseId), {
               loading: "Creating Location Profile...",
-              success: "Person Location Created!",
+              success: "Location Profile Created!",
               error: "Error creating Location Profile",
             });
 

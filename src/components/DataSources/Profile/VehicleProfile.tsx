@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -20,6 +20,7 @@ import {
   CardContent,
 } from "@/components/ui/card";
 import { Vehicle } from "@prisma/client";
+import { convertToBase64 } from "@/lib/utils";
 
 const vehicleSchema = z.object({
   make: z.string().min(1, "Make is required"),
@@ -32,6 +33,7 @@ const vehicleSchema = z.object({
   licensePlate: z.string().min(1, "License Plate is required"),
   vin: z.string().optional().nullable(),
   thumbnail: z.string().optional().nullable(),
+  description: z.string().optional().nullable(),
 });
 
 type VehicleFormData = z.infer<typeof vehicleSchema>;
@@ -42,10 +44,21 @@ interface VehicleProfileProps {
 }
 
 export function VehicleProfile({ vehicle, onSubmit }: VehicleProfileProps) {
+  const [imageFile, setImageFile] = useState<File | null>(null);
+
   const form = useForm<VehicleFormData>({
     resolver: zodResolver(vehicleSchema),
     defaultValues: vehicle,
   });
+
+  const handleSubmit = async (data: VehicleFormData) => {
+    if (imageFile) {
+      const base64 = await convertToBase64(imageFile);
+      data.thumbnail = base64;
+    }
+
+    onSubmit(data);
+  };
 
   return (
     <Card className="max-h-[80vh] overflow-y-scroll">
@@ -55,7 +68,10 @@ export function VehicleProfile({ vehicle, onSubmit }: VehicleProfileProps) {
       </CardHeader>
       <CardContent>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+          <form
+            onSubmit={form.handleSubmit(handleSubmit)}
+            className="space-y-8"
+          >
             {/* Make */}
             <FormField
               control={form.control}
@@ -65,6 +81,24 @@ export function VehicleProfile({ vehicle, onSubmit }: VehicleProfileProps) {
                   <FormLabel>Make</FormLabel>
                   <FormControl>
                     <Input placeholder="Toyota" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="description"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Description</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="Description"
+                      {...field}
+                      value={field.value || ""}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -168,9 +202,14 @@ export function VehicleProfile({ vehicle, onSubmit }: VehicleProfileProps) {
                   <FormLabel>Thumbnail</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="URL to thumbnail"
-                      {...field}
-                      value={field.value || ""}
+                      type="file"
+                      accept="image/jpg"
+                      onChange={(e) => {
+                        const file = e.target.files?.[0];
+                        if (file) {
+                          setImageFile(file);
+                        }
+                      }}
                     />
                   </FormControl>
                   <FormMessage />

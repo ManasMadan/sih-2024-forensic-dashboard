@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -20,7 +20,14 @@ import {
   CardContent,
 } from "@/components/ui/card";
 import { Person } from "@prisma/client";
-import { DialogClose } from "@/components/ui/dialog";
+import { convertToBase64 } from "@/lib/utils";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const personSchema = z.object({
   firstName: z.string().min(1, "First name is required"),
@@ -32,6 +39,7 @@ const personSchema = z.object({
   phone: z.string().optional().nullable(),
   email: z.string().email().optional().nullable(),
   thumbnail: z.string().optional().nullable(),
+  description: z.string().optional().nullable(),
 });
 
 type PersonFormData = z.infer<typeof personSchema>;
@@ -42,6 +50,8 @@ interface PersonProfileProps {
 }
 
 export function PersonProfile({ person, onSubmit }: PersonProfileProps) {
+  const [imageFile, setImageFile] = useState<File | null>(null);
+
   const form = useForm<PersonFormData>({
     resolver: zodResolver(personSchema),
     defaultValues: {
@@ -49,6 +59,15 @@ export function PersonProfile({ person, onSubmit }: PersonProfileProps) {
       dateOfBirth: person?.dateOfBirth?.toISOString().split("T")[0] || "",
     },
   });
+
+  const handleSubmit = async (data: PersonFormData) => {
+    if (imageFile) {
+      const base64 = await convertToBase64(imageFile);
+      data.thumbnail = base64;
+    }
+
+    onSubmit(data);
+  };
 
   return (
     <Card className="max-h-[80vh] overflow-y-scroll">
@@ -58,7 +77,10 @@ export function PersonProfile({ person, onSubmit }: PersonProfileProps) {
       </CardHeader>
       <CardContent>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+          <form
+            onSubmit={form.handleSubmit(handleSubmit)}
+            className="space-y-8"
+          >
             {/* First Name */}
             <FormField
               control={form.control}
@@ -89,6 +111,24 @@ export function PersonProfile({ person, onSubmit }: PersonProfileProps) {
               )}
             />
 
+            <FormField
+              control={form.control}
+              name="description"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Description</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="Description"
+                      {...field}
+                      value={field.value || ""}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
             {/* Date of Birth */}
             <FormField
               control={form.control}
@@ -111,13 +151,21 @@ export function PersonProfile({ person, onSubmit }: PersonProfileProps) {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Gender</FormLabel>
-                  <FormControl>
-                    <Input
-                      placeholder="Male/Female"
-                      {...field}
-                      value={field.value || ""}
-                    />
-                  </FormControl>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value || undefined}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select gender" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      <SelectItem value="male">Male</SelectItem>
+                      <SelectItem value="female">Female</SelectItem>
+                      <SelectItem value="other">Other</SelectItem>
+                    </SelectContent>
+                  </Select>
                   <FormMessage />
                 </FormItem>
               )}
@@ -208,9 +256,14 @@ export function PersonProfile({ person, onSubmit }: PersonProfileProps) {
                   <FormLabel>Thumbnail</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="URL to thumbnail"
-                      {...field}
-                      value={field.value || ""}
+                      type="file"
+                      accept="image/jpg"
+                      onChange={(e) => {
+                        const file = e.target.files?.[0];
+                        if (file) {
+                          setImageFile(file);
+                        }
+                      }}
                     />
                   </FormControl>
                   <FormMessage />
