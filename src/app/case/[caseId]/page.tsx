@@ -1,10 +1,6 @@
 import React from "react";
-import AddDataSourceButton from "@/components/DataSources/AddDataSourceButton";
 
 export default function Page({ params }: { params: { caseId: string } }) {
-  return (
-    <main className="p-6">
-      <AddDataSourceButton caseId={params.caseId} />
-    </main>
-  );
+  // TODO: Upload E01 Images and analytics will show here, need to check if case is open or closed
+  return <main className="p-6"></main>;
 }
