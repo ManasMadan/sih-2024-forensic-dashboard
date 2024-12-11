@@ -44,7 +44,6 @@ model UserNotification {
 model Image {
   id        Int      @id @default(autoincrement())
   name      String
-  path      String
   case      Case     @relation(fields: [caseId], references: [id])
   caseId    Int
   createdAt DateTime @default(now())
