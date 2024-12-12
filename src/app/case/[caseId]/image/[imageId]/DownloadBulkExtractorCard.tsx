@@ -17,7 +17,7 @@ export default function DownloadBulkExtractorCard({
   const handleDownload = async () => {
     try {
       const response = await fetch(
-        `http://4.213.138.110:5000/download_folder/${imageId}`,
+        `http://4.213.138.110:8000/download_folder/${imageId}`,
         { cache: "no-cache" }
       );
 

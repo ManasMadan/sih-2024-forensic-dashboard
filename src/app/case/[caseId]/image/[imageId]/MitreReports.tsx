@@ -1,4 +1,5 @@
 "use client";
+
 import { Input } from "@/components/ui/input";
 import {
   TableBody,
@@ -14,6 +15,7 @@ interface MitreReport {
   [key: string]: {
     summary: string;
     details: string;
+    possible_ttps: string[];
   };
 }
 
@@ -28,10 +30,11 @@ const MitreReportsTable = ({ imageId }: { imageId: string }) => {
     const fetchReports = async () => {
       try {
         const response = await fetch(
-          `http://4.213.138.110:5000/get-mitre-reports/${imageId}`,
+          `http://4.213.138.110:8000/get-mitre-reports/${imageId}`,
           { cache: "no-cache" }
         );
         const data = await response.json();
+        console.log(data);
         setReports(data);
         setFilteredReports(data);
       } catch (error) {
@@ -69,6 +72,7 @@ const MitreReportsTable = ({ imageId }: { imageId: string }) => {
           <TableRow>
             <TableHead>File Name</TableHead>
             <TableHead>Summary</TableHead>
+            <TableHead>Possible TTPs</TableHead> {/* New column for TTPs */}
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -77,6 +81,14 @@ const MitreReportsTable = ({ imageId }: { imageId: string }) => {
               <TableRow key={fileName}>
                 <TableCell>{fileName}</TableCell>
                 <TableCell>{report.summary}</TableCell>
+                <TableCell>
+                  {/* Render Possible TTPs */}
+                  {report.possible_ttps.length > 0 ? (
+                    report.possible_ttps.join(", ")
+                  ) : (
+                    <span>No TTPs available</span>
+                  )}
+                </TableCell>
               </TableRow>
             ))}
         </TableBody>

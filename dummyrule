@@ -1,0 +1,13 @@
+rule SuspiciousString {
+    meta:
+        description = "Detects suspicious string in files"
+        author = "Your Name"
+        date = "2024-12-12"
+        
+    strings:
+        $suspicious = "SuspiciousString" ascii wide
+        $malicious = "MaliciousPattern" ascii wide
+        
+    condition:
+        $suspicious or $malicious
+}

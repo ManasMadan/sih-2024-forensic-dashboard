@@ -23,7 +23,7 @@ export default function ImageCard({
   const handleProcess = async () => {
     setIsProcessing(true);
     try {
-      const response = await axios.post("http://4.213.138.110:5000/process", {
+      const response = await axios.post("http://4.213.138.110:8000/process", {
         id: image.id,
         imageName: image.name,
       });

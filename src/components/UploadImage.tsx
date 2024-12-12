@@ -43,7 +43,7 @@ export default function ImageUploadForm({ caseId }: ImageUploadFormProps) {
       formData.append("file", file);
       formData.append("id", result.id.toString());
 
-      await axios.post(`http://4.213.138.110:5000/upload`, formData, {
+      await axios.post(`http://4.213.138.110:8000/upload`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
