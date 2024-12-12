@@ -48,4 +48,5 @@ model Image {
   caseId    Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  processed Boolean @default(false)
 }

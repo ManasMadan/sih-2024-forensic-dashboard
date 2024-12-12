@@ -23,3 +23,24 @@ export async function createImage(imageData: any) {
     await prisma.$disconnect();
   }
 }
+
+export async function processedImage(imageId: number) {
+  try {
+    const { userId } = auth();
+
+    if (!userId) {
+      throw new Error("Unauthorized");
+    }
+
+    const createdImage = await prisma.image.update({
+      data: { processed: true },
+      where: { id: imageId },
+    });
+
+    return createdImage;
+  } catch (error) {
+    console.error(error);
+  } finally {
+    await prisma.$disconnect();
+  }
+}

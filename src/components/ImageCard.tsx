@@ -1,9 +1,11 @@
 "use client";
 import React, { useState } from "react";
-import { Card, CardFooter, CardTitle } from "./ui/card";
+import { Card, CardFooter, CardHeader, CardTitle } from "./ui/card";
 import { Button } from "./ui/button";
 import axios from "axios";
 import { toast } from "react-hot-toast";
+import { processedImage } from "@/actions/image";
+import Link from "next/link";
 
 export default function ImageCard({
   image,
@@ -29,6 +31,7 @@ export default function ImageCard({
       if (response.data.error) {
         toast.error(response.data.message);
       } else {
+        await processedImage(image.id);
         toast.success("Image processed successfully");
       }
     } catch (error) {
@@ -40,11 +43,20 @@ export default function ImageCard({
   };
 
   return (
-    <Card>
-      <CardTitle>{image.name}</CardTitle>
-      <CardFooter>
+    <Card className="max-w-fit">
+      <CardHeader>{image.name}</CardHeader>
+      <CardFooter className="space-x-4">
         <Button onClick={handleProcess} disabled={isProcessing}>
-          {isProcessing ? "Processing..." : "Start Processing"}
+          {isProcessing
+            ? "Processing..."
+            : !image.processed
+            ? "Start Processing"
+            : "Process Image Again"}
+        </Button>
+        <Button asChild disabled={!image.processed}>
+          <Link href={`/case/${image.caseId}/image/${image.id}`}>
+            See Analytics
+          </Link>
         </Button>
       </CardFooter>
     </Card>

@@ -19,7 +19,7 @@ export default async function layout({
   }
 
   if (caseData.status === "PUBLIC" || caseData.userId.includes(userId)) {
-    return children;
+    return <main className="p-6">{children}</main>;
   } else {
     // TODO: Request Access to Case
     return <div>You are not authorized to view this page</div>;
